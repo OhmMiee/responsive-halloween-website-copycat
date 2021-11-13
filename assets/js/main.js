@@ -30,7 +30,7 @@ function linkAction(){
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
 /*==================== HOME SWIPER ====================*/
-var swiper = new Swiper(".home-swiper", {
+var homeSwiper = new Swiper(".home-swiper", {
     spaceBetween: 30,
     loop: 'true',
     pagination: {
@@ -46,3 +46,31 @@ function scrollHeader(){
     if(this.scrollY >= 100) header.classList.add('scroll-header'); else header.classList.remove('scroll-header')
 }
 window.addEventListener('scroll', scrollHeader)
+
+/*==================== NEW SWIPER ====================*/
+var newSwiper = new Swiper(".new-swiper", {
+    spaceBetween: 16,
+    loop: 'true',
+    slidesPerView: 'auto',
+    centeredSlides: true
+});
+
+/*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
+const sections = document.querySelectorAll('section[id]')
+
+function scrollActive(){
+    const scrollY = window.pageYOffset
+
+    sections.forEach(current =>{
+        const sectionHeight = current.offsetHeight,
+              sectionTop = current.offsetTop - 58,
+              sectionId = current.getAttribute('id')
+
+        if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.add('active-link')
+        }else{
+            document.querySelector('.nav__menu a[href*=' + sectionId + ']').classList.remove('active-link')
+        }
+    })
+}
+window.addEventListener('scroll', scrollActive)
